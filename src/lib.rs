@@ -7,23 +7,20 @@ pub struct Config{
 }
 
 impl Config {
-    // fn new(args: &[String]) -> Config {
-    //     if args.len() < 3 {
-    //         panic!("Not enough arguments");
-    //     }
-    //     let query_str = args[1].clone();
-    //     let file_path = args[2].clone();
-    //     Config{query:query_str, file_path}
-    // }
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            Err("Not Enough arguments")
-        }
-        else {
-            let query_str = args[1].clone();
-            let file_path = args[2].clone();
-            Ok(Config{query:query_str, file_path})
-        }
+    pub fn build(
+        mut args: impl Iterator<Item = String>) 
+        -> Result<Config, &'static str> {
+            args.next();
+            let query = match args.next(){
+                Some(q) => q,
+                None => return Err("Missing key word for query")
+            };
+            let file_path = match args.next(){
+                Some(f) => f,
+                None => return Err("Missing target file path")
+            };
+
+            Ok(Config { query, file_path })
     }
 }
 
