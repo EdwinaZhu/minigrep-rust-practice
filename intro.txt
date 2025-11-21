@@ -1,0 +1,4 @@
+RisingWave is a distributed streaming database
+that processes continuous data streams using SQL. 
+The system is implemented in Rust and organized as a Cargo workspace 
+with distinct node types that communicate via gRPC (using tonic).
